@@ -1,0 +1,408 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    /* Gradiente principal: --gradient-start: #fe1320, --gradient-end: #ff6a20 */
+    background: linear-gradient(180deg, #fe1320 0%, #ff6a20 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    height: 100vh;
+    /* Gradiente principal: --gradient-start: #fe1320, --gradient-end: #ff6a20 */
+    background: linear-gradient(180deg, #fe1320 0%, #ff6a20 100%);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 100;
+}
+
+.btn-back {
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.btn-back:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: scale(1.08);
+}
+
+.btn-back:active {
+    transform: scale(0.95);
+}
+
+.btn-back svg {
+    stroke: white;
+    stroke-width: 3;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    z-index: 5;
+    overflow-y: auto;
+}
+
+.title {
+    font-size: 44px;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 25px;
+    line-height: 1.1;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3), 2px 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+    animation: slideDown 0.8s ease-out;
+}
+
+.treasure-area {
+    position: relative;
+    width: 100%;
+    height: 70vh; /* Aumento para 70% da altura do viewport */
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Moedas flutuantes */
+.coin-float {
+    position: absolute;
+    animation: float 3s ease-in-out infinite;
+}
+
+.coin-float-1 {
+    width: 20vw; /* Aumento para 20% da largura do viewport */
+    height: 20vw; /* Aumento para 20% da largura do viewport */
+    top: 5vh;
+    left: 5vw;
+    animation-delay: 0s;
+}
+
+.coin-float-2 {
+    width: 15vw; /* Aumento para 15% da largura do viewport */
+    height: 15vw; /* Aumento para 15% da largura do viewport */
+    bottom: 10vh;
+    right: 5vw;
+    animation-delay: 1.5s;
+}
+
+.coin-float-3 {
+    width: 15vw; /* Aumento para 15% da largura do viewport */
+    height: 15vw; /* Aumento para 15% da largura do viewport */
+    top: 15vh;
+    right: 15vw;
+    animation-delay: 0.8s;
+}
+
+.coin-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* Presentes flutuantes */
+.gift-float {
+    position: absolute;
+    animation: float 3.5s ease-in-out infinite;
+}
+
+.gift-float-1 {
+    width: 18vw; /* Aumento para 18% da largura do viewport */
+    height: 18vw; /* Aumento para 18% da largura do viewport */
+    bottom: 15vh;
+    left: 5vw;
+    animation-delay: 0.5s;
+}
+
+.gift-float-2 {
+    width: 18vw; /* Aumento para 18% da largura do viewport */
+    height: 18vw; /* Aumento para 18% da largura do viewport */
+    bottom: 18vh;
+    right: 5vw;
+    animation-delay: 1s;
+}
+
+.gift-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* Baú principal */
+.chest-container {
+    position: relative;
+    width: 95vw; /* 95% da largura do viewport */
+    height: 95vw; /* 95% da largura do viewport */
+    z-index: 20;
+    animation: chestBounce 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+.chest-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+}
+
+/* Removido o valor de texto duplicado. O valor está na imagem do baú. */
+
+/* Botão de ação */
+.btn-action {
+    /* Gradiente do botão: --price-color: #ff7800 (laranja) e --button-border: #ffab00 (amarelo) */
+    background: linear-gradient(135deg, #ffab00 0%, #ff7800 100%);
+    border: 3px solid #ffab00; /* Cor da borda do botão */
+    padding: 20px 55px;
+    font-size: 26px;
+    font-weight: 900;
+    color: #feffff; /* --text-white */
+    border-radius: 60px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 50px; /* Aumentado para dar espaço */
+    z-index: 10;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.8s ease-out 0.5s both, pulse 1.5s ease-in-out 1.3s infinite;
+}
+
+.btn-action:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn-action:active {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Animações */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+}
+
+@keyframes chestBounce {
+    0%, 100% {
+        transform: translateY(0px) scale(1) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-20px) scale(1.05) rotate(-2deg);
+    }
+    50% {
+        transform: translateY(-25px) scale(1.08) rotate(2deg);
+    }
+    75% {
+        transform: translateY(-15px) scale(1.05) rotate(-1deg);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0px) scale(1);
+    }
+    50% {
+        transform: translateY(-15px) scale(1.02);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Rodapé */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 10px;
+    text-align: center;
+    z-index: 100;
+}
+
+.footer p {
+    margin: 0;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+    .treasure-area {
+        height: 70vh; /* Altura ajustada para mobile */
+    }
+
+    .chest-container {
+        width: 95vw; /* 95% da largura do viewport - Foco no baú */
+        height: 95vw; /* 95% da largura do viewport - Foco no baú */
+    }
+
+    .coin-float-1 {
+        width: 20vw;
+        height: 20vw;
+        top: 5vh;
+        left: 5vw;
+    }
+
+    .coin-float-2 {
+        width: 15vw;
+        height: 15vw;
+        bottom: 5vh;
+        right: 5vw;
+    }
+
+    .coin-float-3 {
+        width: 15vw;
+        height: 15vw;
+        top: 15vh;
+        right: 5vw;
+    }
+
+    .gift-float-1 {
+        width: 18vw;
+        height: 18vw;
+        bottom: 5vh;
+        left: 5vw;
+    }
+
+    .gift-float-2 {
+        width: 18vw;
+        height: 18vw;
+        bottom: 10vh;
+        right: 5vw;
+    }
+
+    .title {
+        font-size: 38px;
+    }
+
+    .value {
+        font-size: 44px;
+    }
+
+    .payment-method {
+        font-size: 30px;
+    }
+
+    .btn-action {
+        padding: 18px 45px;
+        font-size: 22px;
+    }
+
+    .treasure-area {
+        height: 240px;
+    }
+
+    .chest-container {
+        width: 180px;
+        height: 180px;
+    }
+
+    .coin-float-1 {
+        width: 50px;
+        height: 50px;
+    }
+
+    .coin-float-2 {
+        width: 40px;
+        height: 40px;
+    }
+
+    .gift-float-1 {
+        width: 45px;
+        height: 45px;
+    }
+
+    .gift-float-2 {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-height: 600px) {
+    .title {
+        margin-bottom: 15px;
+    }
+
+    .value-display {
+        margin: 15px 0;
+    }
+
+    .btn-action {
+        margin-top: 15px;
+    }
+}
+

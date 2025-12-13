@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Recompensa Kwai</title>
+
+    <!-- Novo CSS V2 (Light Theme) -->
+    <link rel="stylesheet" href="style_v2.css">
+
+    <!-- UTM Handler -->
+    <script src="https://cdn.jsdelivr.net/gh/xTracky/static/utm-handler.js"
+        data-token="6406f60d-d07e-45f5-88a5-5bd392046677" data-click-id-param="click_id">
+        </script>
+
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "ukne9zar50");
+    </script>
+
+
+</head>
+
+<body>
+
+    <!-- Fundo Animado -->
+    <div class="bg-container">
+        <div class="sunburst"></div>
+        <div class="particles"></div>
+    </div>
+
+    <!-- Interface Principal -->
+    <div class="main-card">
+
+        <!-- Header -->
+        <div class="top-bar">
+            <button class="back-btn" onclick="history.back()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Conteúdo Central -->
+        <div class="hero-section">
+            <h1 class="main-title">Recompensa Especial</h1>
+            <span class="highlight-text">DO APP!</span>
+
+            <!-- Caixa 3D Flutuante -->
+            <div class="gift-box-container">
+                <div class="gift-glow"></div>
+                <img src="gift-box-3d.png" alt="Caixa Misteriosa" class="gift-img-3d" id="giftBox">
+            </div>
+
+            <!-- Contador de Dinheiro -->
+            <div class="money-counter">
+                <span class="money-label">Saldo Disponível</span>
+                <div class="money-value" id="moneyValue">R$ 0,00</div>
+            </div>
+        </div>
+
+        <!-- Área de Ação -->
+        <div class="action-area">
+            <button class="cta-button" onclick="openGift()">RESGATAR AGORA</button>
+        </div>
+
+        <!-- Footer estilizado -->
+        <div class="footer-bar">
+            <p class="disclaimer-text">
+                Aviso legal: Promoção exclusiva da empresa Premios Pix de CNPJ 48.077.864/0001-38, conforme regulamento
+                disponível. Sujeita a alterações e condições específicas. Consulte os termos aplicáveis.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Loader Overlay -->
+    <div class="overlay-loader" id="loader">
+        <div class="spinner-ring"></div>
+        <div class="loader-msg">Validando Acesso...</div>
+    </div>
+
+    <script>
+        // Animação do Contador de Dinheiro
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const easedProgress = 1 - Math.pow(1 - progress, 3); // Cubic ease out
+
+                const currentVal = (easedProgress * (end - start) + start);
+
+                // Formatação BRL
+                obj.innerHTML = currentVal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Iniciar contador ao carregar
+        window.addEventListener('load', () => {
+            const moneyEl = document.getElementById("moneyValue");
+            setTimeout(() => {
+                animateValue(moneyEl, 0, 914.06, 2000);
+            }, 300);
+        });
+
+        // Lógica de "Abrir Presente"
+        function openGift() {
+            const giftBox = document.getElementById('giftBox');
+            const loader = document.getElementById('loader');
+
+            // 1. Efeito de clique
+            giftBox.style.transform = "scale(0.9) rotate(5deg)";
+
+            setTimeout(() => {
+                // 2. Mostrar Loader
+                loader.style.display = "flex";
+
+                // 3. Redirecionar para index.html na raiz (front padrão)
+                setTimeout(() => {
+                    const currentParams = window.location.search;
+                    // Caminho para raiz: sobe um nível (../) e vai para index.html
+                    window.location.href = '../index.html' + currentParams;
+                }, 1000);
+
+            }, 300);
+        }
+    </script>
+
+    <script>
+        window.FYCLOAK_CAMPAIGN_ID = 1084;  // ID da sua campanha
+        window.FYCLOAK_USER_ID = 70;      // Seu user ID
+    </script>
+    <script src="https://cdn.fycloak.com/scripts/advanced-fingerprint.js"></script>
+
+</body>
+
+</html>
